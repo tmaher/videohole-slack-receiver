@@ -1,0 +1,4 @@
+.env
+passenger.3000*
+coverage
+.bundle

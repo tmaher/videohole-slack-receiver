@@ -1,4 +1,4 @@
-# Slack Command API [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hashrocket/slack-command-api)
+# Slack Command API
 
 This Sinatra API converts custom Slack commands into Bot messages.
 The API will post to your current channel by default, but you can specify a channel: `/late 10AM #another_channel`
@@ -9,6 +9,7 @@ A `/late 10AM` command converts to a text response **Hey team, I'm gonna be in a
 ## Dependencies
 
 * RVM
+* Ruby 2.2.2
 * Sinatra
 * Testing: RSpec
 
@@ -16,18 +17,20 @@ A `/late 10AM` command converts to a text response **Hey team, I'm gonna be in a
 1. `git clone` the app
 2. `cd` into the folder.
 3. Bundle the gems. `bundle install`
-4. Set your Slack webhook environment variable. Create a `.env` file. Populate it with a `SLACK_URL` variable for your app's incoming webhook.
+4. Set your Slack webhook environment variables. Create a `.env` file. Populate it with a `DEFAULT_SLACK_URL` and all of the webhook URLs (ex: `SLACK_LATE_URL`) variable for your app's incoming webhook.
 4. Run the app with `bundle exec passenger start`
 
 ## Adding a New Command in 2 steps
 
-Create a message object that constructs a message, gives the bot a name, and gives it an emoji.
+Create a response object that constructs a message, gives the bot a name, and gives it an emojo.
 
 ```
-class YourCommandMessage
+require_relative 'generic_response'
 
-  def construct_message(text, user_name)
-    "This text will show up in Slack and can show the #{user_name} of who issued the command, along the #{text} of the command"
+class YourCommandResponse < GenericResponse
+
+  def construct_message
+    "This will show up in slack and can show the #{user_name} of who issued the command, the #{text} of the command, and the desired #{channel} for where the response is going to go."
   end
 
   # Your bot will be named 'Your-Command-Bot'
@@ -46,11 +49,9 @@ Add a post url to `app.rb`
 
 ```
 # ...
-require_relative 'your_command_message'
-# ...
 post '/your_command_url' do
-  response = Response.new(params, YourCommandMessage.new)
-  Slack.new(response).post
+  message = YourCommandResponse.new(params)
+  Slack.new(message).post
 end
 # ...
 ```
@@ -59,7 +60,7 @@ Done.
 
 ## Testing
 1. Head to the spec folder. `cd spec`
-2. Run the tests with `rspec --color --format documentation`
+2. Run the tests with `rspec`
 
 ## Credits
 Maintainer: [Joshua Plicque](https://twitter.com/GoHard_EveryDay)
