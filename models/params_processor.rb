@@ -37,6 +37,6 @@ class ParamsProcessor
   end
 
   def timeoff_text
-    text_values[0].gsub(' ', '').gsub(',', ' through ')
+    text_values[0].delete(' ').gsub(',', ' through ')
   end
 end
