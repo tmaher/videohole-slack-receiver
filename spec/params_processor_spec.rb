@@ -15,6 +15,28 @@ describe ParamsProcessor do
     }
   end
 
+user_profile_resp =<<-EOT
+{
+  "ok": true,
+  "profile": {
+    "title": "break things",
+    "phone": "",
+    "skype": "",
+    "real_name": "mystery guest",
+    "real_name_normalized": "mystery guest",
+    "display_name": "mystery guest",
+    "display_name_normalized": "mystery guest",
+    "fields": [],
+    "status_text": "",
+    "status_emoji": "",
+    "status_expiration": 0,
+    "email": "user@example.com",
+    "first_name": "mystery",
+    "last_name": "guest"
+  }
+}
+EOT
+
   let(:subject) { described_class.new(nil, data) }
 
   before do
@@ -23,7 +45,7 @@ describe ParamsProcessor do
   end
 
   it 'parses user name' do
-    expect(subject.user_name).to eq('Steve')
+    expect(subject.user_name).to eq('<@U2147483697>')
   end
 
   it 'parses message text' do
