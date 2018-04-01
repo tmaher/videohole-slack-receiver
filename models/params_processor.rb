@@ -2,6 +2,7 @@
 
 require 'uri'
 require 'json'
+require 'slack-ruby-client'
 
 # docs
 class ParamsProcessor
