@@ -15,7 +15,7 @@ describe ParamsProcessor do
     }
   end
 
-  let(:subject) { described_class.new(data) }
+  let(:subject) { described_class.new(nil, data) }
 
   it 'parses user name' do
     expect(subject.user_name).to eq('Steve')
