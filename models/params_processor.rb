@@ -33,7 +33,8 @@ class ParamsProcessor
   end
 
   def lookup_user
-    @slack_client.users_profile_get(user: params[:user_id])
+    user = @slack_client.users_profile_get(user: params[:user_id])
+    STDERR.puts user
   end
 
   private
