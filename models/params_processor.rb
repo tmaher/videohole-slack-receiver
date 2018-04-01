@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'uri'
+require 'json'
 
 # docs
 class ParamsProcessor
@@ -31,7 +32,7 @@ class ParamsProcessor
 
   def debug_log
     return unless ENV['DEBUG']
-    STDERR.puts Hash[URI.decode_www_form(@request.body.read)].to_json
+    STDERR.puts JSON.pretty_generate(Hash[URI.decode_www_form(@request.body.read)])
   end
 
   def text_values
