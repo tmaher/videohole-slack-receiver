@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'uri'
+
 # docs
 class ParamsProcessor
   attr_reader :params
@@ -29,7 +31,7 @@ class ParamsProcessor
 
   def debug_log
     return unless ENV['DEBUG']
-    STDERR.puts @request.body.read
+    STDERR.puts Hash[URI.decode_www_form(@request.body.read)].to_json
   end
 
   def text_values
