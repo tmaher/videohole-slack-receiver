@@ -32,7 +32,9 @@ class ParamsProcessor
 
   def debug_log
     return unless ENV['DEBUG']
-    STDERR.puts JSON.pretty_generate(Hash[URI.decode_www_form(@request.body.read)])
+    STDERR.puts JSON.pretty_generate(
+      Hash[URI.decode_www_form(@request.body.read)]
+    )
   end
 
   def text_values
