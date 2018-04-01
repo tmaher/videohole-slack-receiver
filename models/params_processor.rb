@@ -14,6 +14,9 @@ class ParamsProcessor
     # params[:text] ||= 'stuff'
     @request = request
     @params = params
+    @slack_client = Slack::Web::Client.new
+    @this_user = lookup_user
+
     debug_log
   end
 
@@ -30,6 +33,7 @@ class ParamsProcessor
   end
 
   def lookup_user
+    @slack_client.users_profile_get(user: params[:user_id])
   end
 
   private

@@ -19,6 +19,12 @@ describe SlackHook do
 
   let(:response) { Response.new(nil, data, LateMessage.new) }
 
+  before do
+    stub_request(:post, "https://slack.com/api/users.profile.get").
+      with( body: {"token"=>nil, "user"=>"U2147483697"} ).
+      to_return(status: 200, body: "", headers: {})
+  end
+
   it 'posts data to Slack' do
     stub_request(:post, 'http://www.example.com').to_return(body: 'foobar')
     expect(RestClient).to receive(:post)
