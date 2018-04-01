@@ -1,6 +1,6 @@
 require_relative 'response'
 
-class Slack
+class SlackHook
   attr_reader :response
 
   def initialize(response)

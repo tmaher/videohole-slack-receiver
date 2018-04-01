@@ -51,7 +51,7 @@ Add a post url to `app.rb`
 # ...
 post '/your_command_url' do
   message = YourCommandResponse.new(params)
-  Slack.new(message).post
+  SlackHook.new(message).post
 end
 # ...
 ```

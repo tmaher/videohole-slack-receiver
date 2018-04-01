@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-describe Slack do
+describe SlackHook do
   let(:app) { Sinatra::Application }
 
   let(:data) do
