@@ -29,7 +29,8 @@ class ParamsProcessor
   end
 
   def user_name
-    @user_display_name || "foop <@#{params[:user_id]}>"
+    # @user_display_name || "foop <@#{params[:user_id]}>"
+    "foop <@#{params[:user_id]}>"
   end
 
   def lookup_user
