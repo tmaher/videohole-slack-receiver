@@ -29,7 +29,7 @@ class ParamsProcessor
 
   def debug_log
     return unless ENV['DEBUG']
-    STDERR.puts request.body.read
+    STDERR.puts @request.body.read
   end
 
   def text_values
