@@ -1,3 +1,4 @@
+# doc
 class LateMessage
   def construct_message(text, user_name)
     "Hey team, #{user_name} is gonna be late and will be in around #{text}."
