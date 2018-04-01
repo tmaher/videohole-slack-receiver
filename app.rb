@@ -9,6 +9,7 @@ Dotenv.load
 post '/late' do
   response = Response.new(request, params, LateMessage.new)
   SlackHook.new(response).post
+  body ""
 end
 
 post '/timeoff' do
