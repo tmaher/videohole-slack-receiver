@@ -15,7 +15,7 @@ class ParamsProcessor
     @request = request
     @params = params
     @slack_client = Slack::Web::Client.new(token: ENV['SLACK_API_TOKEN'])
-    @this_user = lookup_user
+    @user_display_name = lookup_user_display_name
 
     debug_log
   end
@@ -29,12 +29,11 @@ class ParamsProcessor
   end
 
   def user_name
-    params[:user_name]
+    @user_display_name || params[:user_name]
   end
 
-  def lookup_user
-    user = @slack_client.users_profile_get(user: params[:user_id])
-    STDERR.puts user
+  def lookup_user_display_name
+    @slack_client.users_profile_get(user: params[:user_id])
   end
 
   private
