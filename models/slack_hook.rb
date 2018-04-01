@@ -11,7 +11,8 @@ class SlackHook
   end
 
   def post
-    RestClient.post(ENV['SLACK_URL'], payload)
+    STDERR.puts "POSTing to #{@response.response_url}"
+    RestClient.post(@response.response_url, payload)
   end
 
   def payload
