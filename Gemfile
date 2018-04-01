@@ -9,7 +9,7 @@ gem 'passenger', '>=5.2'    # Web Server
 gem 'rest-client'  # Make external HTTP requests
 gem 'sinatra'      # Ruby web framework
 gem 'dotenv'       # Environment Variables
-gem 'slack-api', '~>1.6.1'
+gem 'slack-ruby-client'
 
 group :test do
   gem 'rspec'      # Testing Framework
