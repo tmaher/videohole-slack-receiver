@@ -17,10 +17,11 @@ class SlackHook
 
   def payload
     {
-      'text'       => response.construct_message,
-      'channel'    => response.channel,
-      'icon_emoji' => response.icon_emoji,
-      'username'   => response.bot_name
+      'text'          => response.construct_message,
+      'channel'       => response.channel,
+      'icon_emoji'    => response.icon_emoji,
+      'username'      => response.bot_name,
+      'response_type' => "in_channel"
     }.to_json
   end
 end
