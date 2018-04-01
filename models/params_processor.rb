@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# docs
 class ParamsProcessor
   attr_reader :params
 
@@ -23,7 +26,7 @@ class ParamsProcessor
   private
 
   def text_values
-    params[:text] ? params[:text].split(/(?=#)/).map(&:strip) : [""]
+    params[:text] ? params[:text].split(/(?=#)/).map(&:strip) : ['']
   end
 
   def timeoff_text

@@ -7,6 +7,7 @@ Bundler.require
 Dotenv.load
 
 post '/late' do
+  STDERR.puts request.body
   response = Response.new(params, LateMessage.new)
   Slack.new(response).post
 end
