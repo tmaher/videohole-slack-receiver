@@ -9,6 +9,7 @@ class ParamsProcessor
     params[:user_name] ||= 'somedude'
     params[:text] ||= 'stuff'
     @params = params
+    debug_log
   end
 
   def text
@@ -24,6 +25,11 @@ class ParamsProcessor
   end
 
   private
+
+  def debug_log
+    return unless ENV['DEBUG']
+    STDERR.puts request.body.read
+  end
 
   def text_values
     params[:text] ? params[:text].split(/(?=#)/).map(&:strip) : ['']
