@@ -19,7 +19,6 @@ describe ParamsProcessor do
 
   before do
     stub_request(:post, "https://slack.com/api/users.profile.get")
-      .with(body: { "token" => nil, "user" => "U2147483697" })
       .to_return(status: 200, body: "", headers: {})
   end
 
