@@ -7,7 +7,8 @@ class Response
   delegate [:user_name, :channel, :text] => :processor
   delegate [:icon_emoji, :bot_name] => :message
 
-  def initialize(params, message)
+  def initialize(request, params, message)
+    @request = request
     @params  = params
     @message = message
   end

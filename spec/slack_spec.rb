@@ -17,7 +17,7 @@ describe Slack do
     }
   end
 
-  let(:response) { Response.new(data, LateMessage.new) }
+  let(:response) { Response.new(nil, data, LateMessage.new) }
 
   it 'posts data to Slack' do
     stub_request(:post, 'http://www.example.com').to_return(body: 'foobar')

@@ -5,9 +5,9 @@ class ParamsProcessor
   attr_reader :params
 
   def initialize(params)
-    params[:channel_name] ||= 'testing'
-    params[:user_name] ||= 'somedude'
-    params[:text] ||= 'stuff'
+    #params[:channel_name] ||= 'testing'
+    #params[:user_name] ||= 'somedude'
+    #params[:text] ||= 'stuff'
     @params = params
     debug_log
   end

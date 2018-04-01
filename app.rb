@@ -7,17 +7,17 @@ Bundler.require
 Dotenv.load
 
 post '/late' do
-  response = Response.new(params, LateMessage.new)
+  response = Response.new(request, params, LateMessage.new)
   Slack.new(response).post
 end
 
 post '/timeoff' do
-  response = Response.new(params, TimeOffMessage.new)
+  response = Response.new(request, params, TimeOffMessage.new)
   Slack.new(response).post
 end
 
 post '/hat_tip' do
-  response = Response.new(params, HatTipMessage.new)
+  response = Response.new(request, params, HatTipMessage.new)
   Slack.new(response).post
 end
 
