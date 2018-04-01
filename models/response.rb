@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 require_relative 'params_processor'
 
+# doc
 class Response
   attr_reader :message
   extend Forwardable
 
-  delegate [:user_name, :channel, :text] => :processor
-  delegate [:icon_emoji, :bot_name] => :message
+  delegate %i[user_name channel text] => :processor
+  delegate %i[icon_emoji bot_name] => :message
 
   def initialize(request, params, message)
     @request = request
@@ -20,6 +23,6 @@ class Response
   private
 
   def processor
-    @processor ||= ParamsProcessor.new(@params)
+    @processor ||= ParamsProcessor.new(@request, @params)
   end
 end

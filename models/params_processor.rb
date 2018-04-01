@@ -4,10 +4,11 @@
 class ParamsProcessor
   attr_reader :params
 
-  def initialize(params)
-    #params[:channel_name] ||= 'testing'
-    #params[:user_name] ||= 'somedude'
-    #params[:text] ||= 'stuff'
+  def initialize(request, params)
+    # params[:channel_name] ||= 'testing'
+    # params[:user_name] ||= 'somedude'
+    # params[:text] ||= 'stuff'
+    @request = request
     @params = params
     debug_log
   end
