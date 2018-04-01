@@ -14,7 +14,7 @@ class ParamsProcessor
     # params[:text] ||= 'stuff'
     @request = request
     @params = params
-    @slack_client = Slack::Web::Client.new
+    @slack_client = Slack::Web::Client.new(token: ENV['SLACK_API_TOKEN'])
     @this_user = lookup_user
 
     debug_log
