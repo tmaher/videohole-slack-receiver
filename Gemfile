@@ -5,7 +5,7 @@ ruby '2.5.1'
 gem 'rdiscount'    # HTML Preprocessor
 gem 'json'         # JSON
 gem 'pry'          # Debugger
-gem 'passenger'    # Web Server
+gem 'passenger', '>=5.2'    # Web Server
 gem 'rest-client'  # Make external HTTP requests
 gem 'sinatra'      # Ruby web framework
 gem 'dotenv'       # Environment Variables
