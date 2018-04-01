@@ -29,6 +29,9 @@ class ParamsProcessor
     params[:user_name]
   end
 
+  def lookup_user
+  end
+
   private
 
   def debug_log
