@@ -14,8 +14,8 @@ class ParamsProcessor
     # params[:text] ||= 'stuff'
     @request = request
     @params = params
-    @slack_client = Slack::Web::Client.new(token: ENV['SLACK_API_TOKEN'])
-    #@user_display_name = lookup_user.profile.display_name
+    # @slack_client = Slack::Web::Client.new(token: ENV['SLACK_API_TOKEN'])
+    # @user_display_name = lookup_user.profile.display_name
 
     debug_log
   end
@@ -32,17 +32,17 @@ class ParamsProcessor
     "<@#{params[:user_id]}>"
   end
 
-  def lookup_user
-    @slack_client.users_profile_get(user: params[:user_id])
-  end
+  # def lookup_user
+  #  @slack_client.users_profile_get(user: params[:user_id])
+  # end
 
   private
 
   def debug_log
     return unless ENV['DEBUG']
-    STDERR.puts JSON.pretty_generate(
-      Hash[URI.decode_www_form(@request.body.read)]
-    )
+    # STDERR.puts JSON.pretty_generate(
+    #   Hash[URI.decode_www_form(@request.body.read)]
+    # )
   end
 
   def text_values
