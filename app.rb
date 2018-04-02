@@ -12,7 +12,7 @@ def do_slack_hook(resp)
 end
 
 before do
-  halt 401, "invalid token" unless params[:token] == ENV['SLACK_SHARED_SECRET']
+  halt 401, "invalid token" unless params[:token] == ENV['xSLACK_SHARED_SECRET']
 end
 
 post '/late' do
