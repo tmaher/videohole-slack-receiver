@@ -1,10 +1,12 @@
 require 'bundler'
+require 'json'
+require 'net/ssh'
+
 require_relative './models/hat_tip_message'
 require_relative './models/late_message'
 require_relative './models/slack_hook'
 require_relative './models/ssh_message'
 require_relative './models/time_off_message'
-require 'net/ssh'
 
 Bundler.require
 Dotenv.load
@@ -18,27 +20,32 @@ def do_ssh_server(resp)
   user = ENV['MEDIA_USER']
   server = ENV['MEDIA_SERVER']
   private_key = ENV['OWSLEY_SSH_PRIVATE_KEY']
-  Net::SSH.start(server, user, key_data: [private_key]) do |ssh|
-    result = ssh.exec!("hostname; uptime ; date")
+  Net::SSH.start(server, user,
+                 key_data: [private_key], forward_agent: true) do |ssh|
+    result = ssh.exec!("hostname; id; uptime ; date")
     resp.override_text = result
     SlackHook.new(resp).post
   end
+end
+
+def in_channel(text)
+  { response_type: 'in_channel', text: text }.to_json
 end
 
 before do
   halt 401, "invalid token" unless params[:token] == ENV['SLACK_SHARED_SECRET']
 end
 
-post '/lateold' do
+post '/late' do
   response = Response.new(request, params, LateMessage.new)
   Thread.new { do_slack_hook(response) }
-  body "superman"
+  body in_channel("superman")
 end
 
-post '/late' do
+post '/server' do
   response = Response.new(request, params, SshMessage.new)
   Thread.new { do_ssh_server(response) }
-  body "dun ssh'd"
+  body in_channel("super-server")
 end
 
 post '/timeoff' do
