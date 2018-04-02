@@ -12,7 +12,7 @@ def do_slack_hook(resp)
 end
 
 before(/./) do
-  halt 403 unless params[:token] == ENV['SLACK_SHARED_SECRET']
+  halt 403 unless params[:token] == ENV['SLACK_SHARED_SECRET'] + "foo"
 end
 
 post '/late' do
