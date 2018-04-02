@@ -34,7 +34,8 @@ def do_ssh_server(resp)
   server = ENV['MEDIA_SERVER']
   slack_cmd = check_cmd(resp.params[:text])
   Net::SSH.start(server, user, forward_agent: true) do |ssh|
-    result = ssh.exec!("./do-a-thing.sh #{slack_cmd}")
+    remote_cmd = "./dockerstuff/owsley/scripts/slack-receiver.sh #{slack_cmd}"
+    result = ssh.exec!(remote_cmd)
     resp.override_text = result
     SlackHook.new(resp).post
   end
