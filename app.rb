@@ -45,8 +45,18 @@ def in_channel(text)
   { response_type: 'in_channel', text: text }.to_json
 end
 
+def check_authz_channels
+  ENV['AUTHZ_CHANNELS'].split(' ').include? params[:channel_id]
+end
+
+def check_authz_users
+  ENV['AUTHZ_USERS'].split(' ').include? params[:user_id]
+end
+
 before do
   halt 401, "invalid token" unless params[:token] == ENV['SLACK_SHARED_SECRET']
+  halt 403, "invalid user" unless check_authz_users
+  halt 407, "invalid channel" unless check_authz_channels
 end
 
 post '/late' do
