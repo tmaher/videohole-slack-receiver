@@ -11,6 +11,7 @@ gem 'rest-client'  # Make external HTTP requests
 gem 'sinatra'      # Ruby web framework
 gem 'dotenv'       # Environment Variables
 gem 'slack-ruby-client'
+gem 'net-ssh'
 
 group :test do
   gem 'rspec'      # Testing Framework
