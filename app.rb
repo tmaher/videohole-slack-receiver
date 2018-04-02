@@ -11,10 +11,8 @@ def do_slack_hook(resp)
   SlackHook.new(resp).post
 end
 
-before '/late' do
-  shared_secret = ENV['SLACK_SHARED_SECRET']
-  STDERR.puts "token is #{params[:token]}, secret #{shared_secret}"
-  halt 403 unless params[:token] == shared_secret
+before do
+  STDERR.puts "I am a before block"
 end
 
 post '/late' do
