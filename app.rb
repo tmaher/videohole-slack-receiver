@@ -19,7 +19,7 @@ end
 def do_ssh_server(resp)
   user = ENV['MEDIA_USER']
   server = ENV['MEDIA_SERVER']
-  private_key = ENV['OWSLEY_SSH_PRIVATE_KEY']
+  private_key = ENV['SERVER_SSH_PRIVATE_KEY']
   Net::SSH.start(server, user,
                  key_data: [private_key], forward_agent: true) do |ssh|
     result = ssh.exec!("./do-a-thing.sh")
