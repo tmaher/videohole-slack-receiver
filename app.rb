@@ -16,12 +16,23 @@ def do_slack_hook(resp)
   SlackHook.new(resp).post
 end
 
+def check_cmd(text)
+  case text
+  when "ps"
+    "ps"
+  when "restart plex"
+    "restartplex"
+  else
+    "df"
+  end
+end
+
 def do_ssh_server(resp)
   user = ENV['MEDIA_USER']
   server = ENV['MEDIA_SERVER']
-  # private_key = ENV['SERVER_SSH_PRIVATE_KEY']
+  slack_cmd = check_cmd(resp.params[:text])
   Net::SSH.start(server, user, forward_agent: true) do |ssh|
-    result = ssh.exec!("./do-a-thing.sh")
+    result = ssh.exec!("./do-a-thing.sh #{slack_cmd}")
     resp.override_text = result
     SlackHook.new(resp).post
   end

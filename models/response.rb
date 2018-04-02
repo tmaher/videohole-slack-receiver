@@ -2,7 +2,7 @@ require_relative 'params_processor'
 
 # doc
 class Response
-  attr_reader :message, :response_url
+  attr_reader :message, :response_url, :params
   attr_accessor :request, :override_text
   extend Forwardable
 
