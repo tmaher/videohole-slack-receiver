@@ -39,12 +39,14 @@ end
 post '/late' do
   response = Response.new(request, params, LateMessage.new)
   Thread.new { do_slack_hook(response) }
+  content_type :json
   body in_channel("superman")
 end
 
 post '/server' do
   response = Response.new(request, params, SshMessage.new)
   Thread.new { do_ssh_server(response) }
+  content_type :json
   body in_channel("super-server")
 end
 
