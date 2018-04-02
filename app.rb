@@ -24,10 +24,19 @@ def check_cmd(text)
     "restartplex"
   when "restart web", "restartweb"
     "restartweb"
+  when "df"
+    "df"
   else
     "df"
   end
 end
+
+CMD_USAGE = <<~USAGE
+  `/server ps`  - check server status
+  `/server df`  - check server disk usage
+  `/server restartplex` - restart plex
+  `/server restartweb`  - restart sonarr, radarr, sabnzbd & support programs
+USAGE
 
 def do_ssh_server(resp)
   user = ENV['MEDIA_USER']
@@ -68,9 +77,14 @@ end
 
 post '/server' do
   response = Response.new(request, params, SshMessage.new)
-  Thread.new { do_ssh_server(response) }
   content_type :json
   msg = "<@#{params[:user_id]}> ran `#{params[:command]} #{params[:text]}`"
+
+  if params[:text].empty?
+    msg += "\nERROR\n#{CMD_USAGE}"
+  else
+    Thread.new { do_ssh_server(response) }
+  end
   body in_channel(msg)
 end
 
