@@ -2,7 +2,7 @@
 class SshMessage
   def construct_message(text, user_name)
     <<~SOMEMESSAGE
-      ssh results for #{user_name}
+      #{user_name} `/server ...` results
       ```
       #{text}
       ```

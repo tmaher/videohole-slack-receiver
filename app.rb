@@ -70,7 +70,8 @@ post '/server' do
   response = Response.new(request, params, SshMessage.new)
   Thread.new { do_ssh_server(response) }
   content_type :json
-  body in_channel("super-server")
+  msg = "<@#{params[:user_id]}> ran `#{params[:command]} #{params[:text]}`"
+  body in_channel(msg)
 end
 
 post '/timeoff' do
