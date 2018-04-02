@@ -22,6 +22,8 @@ def check_cmd(text)
     "ps"
   when "restart plex", "restartplex"
     "restartplex"
+  when "restart web", "restartweb"
+    "restartweb"
   else
     "df"
   end
