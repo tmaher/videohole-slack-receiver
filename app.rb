@@ -13,8 +13,9 @@ end
 
 post '/late' do
   response = Response.new(request, params, LateMessage.new)
-  Thread.new { do_slack_hook(response) }
+  t1 = Thread.new { do_slack_hook(response) }
   body "superman"
+  t1.join
 end
 
 post '/timeoff' do
