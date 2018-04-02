@@ -19,9 +19,8 @@ end
 def do_ssh_server(resp)
   user = ENV['MEDIA_USER']
   server = ENV['MEDIA_SERVER']
-  private_key = ENV['SERVER_SSH_PRIVATE_KEY']
-  Net::SSH.start(server, user,
-                 key_data: [private_key], forward_agent: true) do |ssh|
+  # private_key = ENV['SERVER_SSH_PRIVATE_KEY']
+  Net::SSH.start(server, user, forward_agent: true) do |ssh|
     result = ssh.exec!("./do-a-thing.sh")
     resp.override_text = result
     SlackHook.new(resp).post
