@@ -20,7 +20,7 @@ def check_cmd(text)
   case text
   when "ps"
     "ps"
-  when "restart plex"
+  when "restart plex", "restartplex"
     "restartplex"
   else
     "df"
