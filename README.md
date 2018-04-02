@@ -1,66 +1,21 @@
-# Slack Command API [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/hashrocket/slack-command-api)
+# Tom's Slack Receiver Hooks
 
-This Sinatra API converts custom Slack commands into Bot messages.
-The API will post to your current channel by default, but you can specify a channel: `/late 10AM #another_channel`
-
-Example:
-A `/late 10AM` command converts to a text response **Hey team, I'm gonna be in around 10AM.**
-
-## Dependencies
-
-* RVM
-* Sinatra
-* Testing: RSpec
-
-## Getting Started
-1. `git clone` the app
-2. `cd` into the folder.
-3. Bundle the gems. `bundle install`
-4. Set your Slack webhook environment variable. Create a `.env` file. Populate it with a `SLACK_URL` variable for your app's incoming webhook.
-4. Run the app with `bundle exec passenger start`
-
-## Adding a New Command in 2 steps
-
-Create a message object that constructs a message, gives the bot a name, and gives it an emoji.
+## Heroku deploy instructions
 
 ```
-class YourCommandMessage
-
-  def construct_message(text, user_name)
-    "This text will show up in Slack and can show the #{user_name} of who issued the command, along the #{text} of the command"
-  end
-
-  # Your bot will be named 'Your-Command-Bot'
-  def bot_name
-    'Your-Command-Bot'
-  end
-
-  # This will show a whale icon for your chat bot
-  def icon_emoji
-   ':whale:'
-  end
-end
+git clone https://github.com/tmaher/slack-receiver
+cd slack-receiver
+git remote add heroku https://git.heroku.com/videohole-slack-receiver.git
+heroku config:set ....   # see below
+git push heroku master
 ```
 
-Add a post url to `app.rb`
-
-```
-# ...
-require_relative 'your_command_message'
-# ...
-post '/your_command_url' do
-  response = Response.new(params, YourCommandMessage.new)
-  Slack.new(response).post
-end
-# ...
-```
-
-Done.
-
-## Testing
-1. Head to the spec folder. `cd spec`
-2. Run the tests with `rspec --color --format documentation`
-
-## Credits
-Maintainer: [Joshua Plicque](https://twitter.com/GoHard_EveryDay)
-If you have any questions, send me a tweet.
+## config vars
+   * `DEBUG` - send debug messages to log
+   * `AUTHZ_CHANNELS` - space-delimited list of Slack channel IDs (start with "G")
+   * `AUTHZ_USERS` - space-delimited list of Slack user IDs (start with "U")
+   * `MEDIA_SERVER` - DNS hostname of server (e.g. server.example.com)
+   * `MEDIA_USER` - user to ssh in as (e.g. root, but plz don't use root)
+   * `SERVER_SSH_PRIVATE_KEY` - unencrypted SSH private key to connect to server (`heroku config:set SERVER_SSH_PRIVATE_KEY="$(cat /path/to/key)"`)
+   * `SLACK_API_TOKEN` - Slack app API token - see https://api.slack.com/docs/working-with-workspace-tokens
+   * `SLACK_SHARED_SECRET` - The slash command's shared secret - see https://api.slack.com/slash-commands
