@@ -3,6 +3,7 @@ require_relative 'params_processor'
 # doc
 class Response
   attr_reader :message, :response_url
+  attr_accessor :request
   extend Forwardable
 
   delegate %i[user_name channel text] => :processor
@@ -13,6 +14,7 @@ class Response
     @params  = params
     @message = message
     @response_url = params[:response_url]
+    @processor = processor
   end
 
   def construct_message
