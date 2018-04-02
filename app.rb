@@ -22,7 +22,7 @@ def do_ssh_server(resp)
   private_key = ENV['OWSLEY_SSH_PRIVATE_KEY']
   Net::SSH.start(server, user,
                  key_data: [private_key], forward_agent: true) do |ssh|
-    result = ssh.exec!("hostname; sudo id; uptime ; date")
+    result = ssh.exec!("hostname; SUDO_ASKPASS=/bin/true sudo id; uptime ; date")
     resp.override_text = result
     SlackHook.new(resp).post
   end
