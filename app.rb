@@ -2,6 +2,7 @@ require 'bundler'
 require_relative './models/hat_tip_message'
 require_relative './models/late_message'
 require_relative './models/slack_hook'
+require_relative './models/ssh_message'
 require_relative './models/time_off_message'
 require 'net/ssh'
 
