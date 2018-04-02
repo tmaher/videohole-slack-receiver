@@ -14,7 +14,6 @@ end
 post '/late' do
   response = Response.new(request, params, LateMessage.new)
   Thread.new { do_slack_hook(response) }
-  sleep 0.5
   body "superman"
 end
 
