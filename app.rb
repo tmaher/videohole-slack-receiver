@@ -6,10 +6,15 @@ require_relative './models/time_off_message'
 Bundler.require
 Dotenv.load
 
+def do_slack_hook(resp)
+  sleep 5
+  SlackHook.new(resp).post
+end
+
 post '/late' do
   response = Response.new(request, params, LateMessage.new)
-  SlackHook.new(response).post
-  body ""
+  Thread.new { do_slack_hook(response) }
+  body "superman"
 end
 
 post '/timeoff' do
