@@ -11,6 +11,10 @@ def do_slack_hook(resp)
   SlackHook.new(resp).post
 end
 
+before(/./) do
+  halt 403 unless params[:token] == ENV['SLACK_SHARED_SECRET']
+end
+
 post '/late' do
   response = Response.new(request, params, LateMessage.new)
   Thread.new { do_slack_hook(response) }
